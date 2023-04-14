@@ -32,8 +32,8 @@ class WeatherActivity : AppCompatActivity() {
         Thread(Runnable {
 
             while (progressBarStatus < 100) {
-                plus += 20
-                Thread.sleep(60000)
+                plus += 1
+                Thread.sleep(600)
 
                 progressBarStatus = plus
 

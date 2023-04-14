@@ -6,13 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".WeatherActivity">
 
-    <LinearLayout
+ <!-- <LinearLayout
+        android:id="@+id/weather_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test"
+            android:textSize="70sp"
+            android:gravity="center"/>
+
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/loading_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -39,9 +57,9 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="250sp"
                 android:layout_height="wrap_content"
-                android:progress="0"
-                android:max="100"
                 android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
 
                 />
 
