@@ -12,9 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.btn_go)
         button.setOnClickListener {
-            startActivity(Intent(applicationContext, WeatherActivity::class.java))
+            startActivity(Intent(this, WeatherActivity::class.java))
         }
     }
-
-
 }

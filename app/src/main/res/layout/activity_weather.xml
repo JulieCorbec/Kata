@@ -23,8 +23,9 @@
                 android:id="@+id/loading_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="texte"
-                android:textSize="50sp" />
+                android:text="Message d\'attente"
+                android:textAlignment="center"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
