@@ -26,8 +26,23 @@ class WeatherActivity : AppCompatActivity() {
 
         loadingText = findViewById(R.id.loading_text)
         progressBar = findViewById(R.id.progress_bar)
+        var progressBarStatus = 0
+        var plus = 0
 
-        object : CountDownTimer(30000, 3000) {
+        Thread(Runnable {
+
+            while (progressBarStatus < 100) {
+                plus += 20
+                Thread.sleep(60000)
+
+                progressBarStatus = plus
+
+                progressBar.progress = progressBarStatus
+            }
+
+        }).start()
+
+        object : CountDownTimer(60000, 6000) {
 
             override fun onTick(millisUntilFinished: Long) {
 
@@ -52,7 +67,6 @@ class WeatherActivity : AppCompatActivity() {
         loadingText.text = textList[index]
         index++
         Log.d("TIMER", "${loadingText.text}")
-        // Sinon, je set l'index à 0 pour recommencer la boucle
 
     }
 }

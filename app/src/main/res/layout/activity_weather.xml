@@ -37,11 +37,13 @@
             <ProgressBar
                 android:id="@+id/progress_bar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="250sp"
                 android:layout_height="wrap_content"
+                android:progress="0"
                 android:max="100"
-                android:progress="20"
-                android:indeterminate="false" />
+                android:indeterminate="false"
+
+                />
 
         </LinearLayout>
     </LinearLayout>
