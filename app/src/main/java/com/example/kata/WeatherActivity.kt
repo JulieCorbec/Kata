@@ -42,6 +42,8 @@ class WeatherActivity : AppCompatActivity() {
 
         }).start()
 
+
+
         object : CountDownTimer(60000, 6000) {
 
             override fun onTick(millisUntilFinished: Long) {
