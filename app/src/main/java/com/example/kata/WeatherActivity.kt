@@ -6,6 +6,11 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.example.kata.api.ApiClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WeatherActivity : AppCompatActivity() {
 
@@ -44,7 +49,7 @@ class WeatherActivity : AppCompatActivity() {
 
 
 
-        object : CountDownTimer(60000, 6000) {
+        object : CountDownTimer(5000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
 
@@ -59,6 +64,7 @@ class WeatherActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 loadingText.text = "fini !"
+                executeCall()
             }
         }.start()
 
@@ -68,8 +74,32 @@ class WeatherActivity : AppCompatActivity() {
         // Si mon index ne dépasse pas la taille de ma liste - 1, je l'incrémente
         loadingText.text = textList[index]
         index++
-        Log.d("TIMER", "${loadingText.text}")
+    }
 
+    private fun executeCall() {
+        lifecycleScope.launch {
+            try {
+                val response = ApiClient.apiService.getPostById(1)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body()
+                    Log.d("TIMER", content.toString())
+                } else {
+                    Toast.makeText(
+                        this@WeatherActivity,
+                        "Error Occurred: ${response.message()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@WeatherActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
 }
 
