@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL: String = "https://jsonplaceholder.typicode.com/"
+    private const val BASE_URL: String = "https://api.openweathermap.org/data/2.5/"
 
     private val gson : Gson by lazy {
         GsonBuilder().setLenient().create()

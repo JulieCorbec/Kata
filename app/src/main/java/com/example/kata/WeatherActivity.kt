@@ -76,14 +76,15 @@ class WeatherActivity : AppCompatActivity() {
         index++
     }
 
+    val appId : String = "059d75c39f3d4fd6ce01fc6215fa515c"
     private fun executeCall() {
         lifecycleScope.launch {
             try {
-                val response = ApiClient.apiService.getPostById(1)
+                val response = ApiClient.apiService.getWeather( "London", appId)
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body()
-                    Log.d("TIMER", content.toString())
+                    Log.d("WEATHER", content.toString())
                 } else {
                     Toast.makeText(
                         this@WeatherActivity,
