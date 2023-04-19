@@ -18,7 +18,12 @@ class WeatherActivity : AppCompatActivity() {
     lateinit var loadingText: TextView
     lateinit var progressBar: ProgressBar
 
-    var index = 0
+    val API_KEY = "059d75c39f3d4fd6ce01fc6215fa515c"
+
+    var citiesList: List<String> = listOf("Rennes", "Paris", "Nantes", "Bordeaux", "Lyon")
+
+    var indexText = 0
+    var indexCity = 0
 
     private val textList: List<String> = listOf(
         "Nous téléchargeons les données...",
@@ -50,22 +55,35 @@ class WeatherActivity : AppCompatActivity() {
 
 
 
-        object : CountDownTimer(5000, 1000) {
+        object : CountDownTimer(60000, 6000) {
 
             override fun onTick(millisUntilFinished: Long) {
 
                 // Appel de la fonction pour modifier le texte en boucle
-                if (index <= (textList.size) - 1) {
+                if (indexText <= (textList.size) - 1) {
                     updateText()
                 } else {
-                    index = 0
+                    indexText = 0
                     updateText()
                 }
+
             }
 
             override fun onFinish() {
                 loadingText.text = "fini !"
-                executeCall()
+            }
+        }.start()
+
+        object : CountDownTimer(60000, 10000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+
+                // Appel de la fonction pour faire un appel à l'API
+                weatherCallByCity()
+            }
+
+            override fun onFinish() {
+                loadingText.text = "fini !"
             }
         }.start()
 
@@ -73,15 +91,21 @@ class WeatherActivity : AppCompatActivity() {
 
     fun updateText() {
         // Si mon index ne dépasse pas la taille de ma liste - 1, je l'incrémente
-        loadingText.text = textList[index]
-        index++
+        loadingText.text = textList[indexText]
+        indexText++
     }
 
+    fun weatherCallByCity() {
+        if (indexCity <= (citiesList.size) - 1) {
+            executeCall()
+            indexCity++
+        }
+    }
 
     private fun executeCall() {
         lifecycleScope.launch {
             try {
-                val response = ApiClient.apiService.getWeather( "London", "059d75c39f3d4fd6ce01fc6215fa515c")
+                val response = ApiClient.apiService.getWeather(citiesList[indexCity], API_KEY)
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body()
