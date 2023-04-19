@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.kata.api.ApiClient
+import com.example.kata.api.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -76,11 +77,11 @@ class WeatherActivity : AppCompatActivity() {
         index++
     }
 
-    val appId : String = "059d75c39f3d4fd6ce01fc6215fa515c"
+
     private fun executeCall() {
         lifecycleScope.launch {
             try {
-                val response = ApiClient.apiService.getWeather( "London", appId)
+                val response = ApiClient.apiService.getWeather( "London", "059d75c39f3d4fd6ce01fc6215fa515c")
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body()
