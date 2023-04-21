@@ -14,6 +14,7 @@ class WeatherAdapter(private val weatherList: MutableList<Weather>) :
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
         val tvTemp: TextView = itemView.findViewById(R.id.tv_temp)
         val tvIcon: TextView = itemView.findViewById(R.id.tv_icon)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
@@ -25,8 +26,10 @@ class WeatherAdapter(private val weatherList: MutableList<Weather>) :
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         val item = weatherList[position]
         holder.tvName.text = item.name
-        holder.tvTemp.text = item.main.temp.toString()
+        holder.tvTemp.text = item.main.temp.toString() + "°C"
         holder.tvIcon.text = item.weather[0].icon
+       //holder.tvIcon.text = "https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png"
+
     }
 
     override fun getItemCount(): Int {

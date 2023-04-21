@@ -1,9 +1,13 @@
 package com.example.kata
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -16,18 +20,19 @@ import kotlinx.coroutines.launch
 
 class WeatherActivity : AppCompatActivity() {
 
+    lateinit var btnAgainLayout: LinearLayout
+    lateinit var loadingLayout: LinearLayout
     lateinit var loadingText: TextView
     lateinit var progressBar: ProgressBar
     lateinit var customAdapter: WeatherAdapter
-    //lateinit var weatherData: Array<WeatherData>
-    //lateinit var mainData: MainData
+    lateinit var btnAgain: Button
 
     var indexText = 0
     var indexCity = 0
 
     val API_KEY = "059d75c39f3d4fd6ce01fc6215fa515c"
 
-    var citiesList: List<String> = listOf("Rennes", "Paris", "Nantes", "Bordeaux", "Lyon")
+    var citiesList: List<String> = listOf("Rennes", "Paris", "Nantes", "Bordeaux", "Lyon", "Versailles", "Rouen", "Marseille", "Londres", "Toulouse", "Berlin")
 
     var weatherList = mutableListOf<Weather>()
 
@@ -49,6 +54,10 @@ class WeatherActivity : AppCompatActivity() {
 
         loadingText = findViewById(R.id.loading_text)
         progressBar = findViewById(R.id.progress_bar)
+        btnAgainLayout = findViewById(R.id.btn_again_layout)
+        loadingLayout = findViewById(R.id.loading_layout)
+        btnAgain = findViewById(R.id.btn_again)
+
         var progressBarStatus = 0
         var plus = 0
 
@@ -77,11 +86,16 @@ class WeatherActivity : AppCompatActivity() {
                     indexText = 0
                     updateText()
                 }
-
             }
 
             override fun onFinish() {
-                loadingText.text = "fini !"
+                //  loadingText.text = "fini !"
+                loadingText.visibility = View.GONE
+                progressBar.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                btnAgainLayout.visibility = View.VISIBLE
+
+
             }
         }.start()
 
@@ -99,6 +113,11 @@ class WeatherActivity : AppCompatActivity() {
             }
         }.start()
 
+        btnAgain.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            weatherList.clear()
+            Log.d("WEATHER", weatherList.toString())
+        }
     }
 
     fun updateText() {
