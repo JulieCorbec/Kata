@@ -8,22 +8,28 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kata.api.ApiClient
-import com.example.kata.api.ApiService
-import kotlinx.coroutines.Dispatchers
+import com.example.kata.recyclerview.WeatherAdapter
 import kotlinx.coroutines.launch
 
 class WeatherActivity : AppCompatActivity() {
 
     lateinit var loadingText: TextView
     lateinit var progressBar: ProgressBar
+    lateinit var customAdapter: WeatherAdapter
+    //lateinit var weatherData: Array<WeatherData>
+    //lateinit var mainData: MainData
+
+    var indexText = 0
+    var indexCity = 0
 
     val API_KEY = "059d75c39f3d4fd6ce01fc6215fa515c"
 
     var citiesList: List<String> = listOf("Rennes", "Paris", "Nantes", "Bordeaux", "Lyon")
 
-    var indexText = 0
-    var indexCity = 0
+    var weatherList = mutableListOf<Weather>()
 
     private val textList: List<String> = listOf(
         "Nous téléchargeons les données...",
@@ -34,6 +40,15 @@ class WeatherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
+
+        //weatherCallByCity()
+
+        val recyclerView: RecyclerView = findViewById(R.id.rv_weather)
+        customAdapter = WeatherAdapter(weatherList)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = customAdapter
+
 
         loadingText = findViewById(R.id.loading_text)
         progressBar = findViewById(R.id.progress_bar)
@@ -55,7 +70,7 @@ class WeatherActivity : AppCompatActivity() {
 
 
 
-        object : CountDownTimer(60000, 6000) {
+        object : CountDownTimer(10000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
 
@@ -74,7 +89,7 @@ class WeatherActivity : AppCompatActivity() {
             }
         }.start()
 
-        object : CountDownTimer(60000, 10000) {
+        object : CountDownTimer(20000, 2000) {
 
             override fun onTick(millisUntilFinished: Long) {
 
@@ -103,20 +118,25 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun executeCall() {
+
         lifecycleScope.launch {
             try {
                 val response = ApiClient.apiService.getWeather(citiesList[indexCity], API_KEY)
 
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body()
-                    Log.d("WEATHER", content.toString())
+                    weatherList.add(content!!)
+                    Log.d("WEATHER", content!!.toString())
                 } else {
                     Toast.makeText(
                         this@WeatherActivity,
                         "Error Occurred: ${response.message()}",
                         Toast.LENGTH_LONG
                     ).show()
+
                 }
+
+                Log.d("WEATHER", weatherList.toString())
 
             } catch (e: Exception) {
                 Toast.makeText(

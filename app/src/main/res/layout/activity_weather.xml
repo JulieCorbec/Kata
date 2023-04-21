@@ -4,13 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".WeatherActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_weather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item" />
+
 
     <TextView
         android:id="@+id/loading_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Message d\'attente"
+        android:text="@string/loading_message"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/progress_bar"
