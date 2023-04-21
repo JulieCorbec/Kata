@@ -41,14 +41,11 @@ class WeatherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
 
-        //weatherCallByCity()
-
         val recyclerView: RecyclerView = findViewById(R.id.rv_weather)
         customAdapter = WeatherAdapter(weatherList)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = customAdapter
-
 
         loadingText = findViewById(R.id.loading_text)
         progressBar = findViewById(R.id.progress_bar)
@@ -67,7 +64,6 @@ class WeatherActivity : AppCompatActivity() {
             }
 
         }).start()
-
 
 
         object : CountDownTimer(10000, 1000) {
@@ -89,7 +85,7 @@ class WeatherActivity : AppCompatActivity() {
             }
         }.start()
 
-        object : CountDownTimer(20000, 2000) {
+        object : CountDownTimer(10000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
 

@@ -12,8 +12,8 @@ class WeatherAdapter(private val weatherList: MutableList<Weather>) :
     RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
     class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
-        //    val tvTemp: TextView = itemView.findViewById(R.id.tv_temp)
-        //   val tvIcon : TextView = itemView.findViewById(R.id.tv_icon)
+        val tvTemp: TextView = itemView.findViewById(R.id.tv_temp)
+        val tvIcon: TextView = itemView.findViewById(R.id.tv_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
@@ -25,8 +25,8 @@ class WeatherAdapter(private val weatherList: MutableList<Weather>) :
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         val item = weatherList[position]
         holder.tvName.text = item.name
-        //holder.tvTemp.text = String().format(item.main.temp)
-        // holder.tvIcon.text = item.weather.icon
+        holder.tvTemp.text = item.main.temp.toString()
+        holder.tvIcon.text = item.weather[0].icon
     }
 
     override fun getItemCount(): Int {
