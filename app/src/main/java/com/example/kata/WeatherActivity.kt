@@ -99,6 +99,7 @@ class WeatherActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 loadingText.text = "fini !"
+                customAdapter.notifyDataSetChanged()
             }
         }.start()
 

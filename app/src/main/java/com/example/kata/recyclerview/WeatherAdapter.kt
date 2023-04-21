@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kata.R
 import com.example.kata.Weather
 
-class WeatherAdapter(private val weatherList: List<Weather>) :
+class WeatherAdapter(private val weatherList: MutableList<Weather>) :
     RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>() {
     class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
