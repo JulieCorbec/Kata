@@ -2,6 +2,6 @@
     <string name="app_name">Kata</string>
     <string name="welcome">Bienvenue !</string>
     <string name="button">Démarrer</string>
-    <string name="loading_message">Message d\'attente</string>
+    <string name="loading_message">Nous téléchargeons les données...</string>
 
 </resources>
