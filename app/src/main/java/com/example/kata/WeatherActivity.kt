@@ -47,7 +47,7 @@ class WeatherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_weather)
 
         val recyclerView: RecyclerView = findViewById(R.id.rv_weather)
-        customAdapter = WeatherAdapter(weatherList)
+        customAdapter = WeatherAdapter(this, weatherList)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = customAdapter
