@@ -15,11 +15,6 @@ import com.example.kata.recyclerview.WeatherAdapter
 
 class WeatherActivity : AppCompatActivity() {
 
-    ///////////////////////////////////////////////////////////////////////////
-    // DATA
-    ///////////////////////////////////////////////////////////////////////////
-
-
     lateinit var weatherViewModel: WeatherViewModel
     lateinit var loadingText: TextView
     lateinit var progressBar: ProgressBar
@@ -43,7 +38,6 @@ class WeatherActivity : AppCompatActivity() {
         btnAgain = findViewById(R.id.btn_again)
         val btnAgainLayout = findViewById<LinearLayout>(R.id.btn_again_layout)
 
-
         val recyclerView: RecyclerView = findViewById(R.id.rv_weather)
         customAdapter = WeatherAdapter(this, weatherList)
         val layoutManager = LinearLayoutManager(this)
@@ -58,7 +52,6 @@ class WeatherActivity : AppCompatActivity() {
 
         weatherViewModel.textValue.observe(this) { textValue ->
             loadingText.text = textValue
-
         }
 
         weatherViewModel.weatherListValue.observe(this) { weatherListValue ->
@@ -74,21 +67,12 @@ class WeatherActivity : AppCompatActivity() {
             btnAgainLayout.isVisible = isFinished
             loadingText.isVisible = !isFinished
             progressBar.isVisible = !isFinished
-
         }
 
         btnAgain.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             weatherList.clear()
         }
-
     }
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    // PRIVATE FUNCTION
-    ///////////////////////////////////////////////////////////////////////////
-
-
 }
 

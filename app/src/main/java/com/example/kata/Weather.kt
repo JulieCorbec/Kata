@@ -1,8 +1,5 @@
 package com.example.kata
 
-import com.google.gson.annotations.SerializedName
-import java.lang.reflect.Constructor
-import java.time.temporal.Temporal
 
 data class Weather(
     val name: String,
